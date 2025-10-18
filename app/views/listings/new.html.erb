@@ -1,10 +1,22 @@
 <div class="w-full max-w-xl mx-auto">
   <h1 class="text-3xl font-bold mb-6 text-center">New Listing</h1>
+
+  <% if @listing.errors.any? %>
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative mb-4">
+      <ul class="list-disc list-inside">
+        <% @listing.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
   <%= form_with model: @listing, url: listings_path, local: true do |form| %>
     <div class="mb-4">
       <%= form.label :body, "Description", class: "block text-gray-700 text-sm font-semibold mb-2" %>
       <%= form.text_area :body, rows: 5, class: "form-textarea mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
     </div>
+
     <div class="flex justify-between items-center">
       <%= link_to "Back to Listings", listings_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded" %>
       <%= form.submit "Create Listing", class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
