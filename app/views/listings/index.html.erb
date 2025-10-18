@@ -1,0 +1,25 @@
+<div class="w-full max-w-2xl mx-auto px-4 sm:px-6">
+  <div class="flex items-center justify-between mb-6 gap-4">
+    <h1 class="text-3xl font-bold text-gray-900">Listings</h1>
+    <%= link_to "Add Listing", new_listing_path, class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+
+  <% if @listings.empty? %>
+    <div class="mt-8 text-gray-600 text-lg">There are no listings</div>
+  <% end %>
+
+  <ul class="divide-y divide-gray-200 mt-8">
+    <% @listings.each do |listing| %>
+      <li class="py-6">
+        <%= link_to listing_path(listing), class: "block hover:bg-gray-50 rounded transition p-2 -m-2" do %>
+          <div class="text-lg text-gray-800">
+            <%= listing.body %>
+          </div>
+          <div class="text-xs text-gray-500 mt-2">
+            Added <%= time_ago_in_words(listing.created_at) %> ago
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
