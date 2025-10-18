@@ -5,9 +5,14 @@
   </div>
 
   <div class="bg-white rounded-lg shadow p-6">
-    <div >
-      <h2 class="text-md font-semibold text-gray-700 mb-2">Summary</h2>
-      <pre class="bg-gray-100 rounded p-2 text-sm text-gray-700"><%= JSON.pretty_generate(@listing.body) %></pre>
+    <div>
+      <h2 class="text-md font-semibold text-gray-700 mb-2">Original Summary</h2>
+      <pre class="bg-gray-100 rounded p-2 text-sm text-gray-700 whitespace-pre-wrap break-words"><%= JSON.pretty_generate(@listing.body) %></pre>
+    </div>
+
+    <div>
+      <h2 class="text-md font-semibold text-gray-700 mb-2">AI Summary</h2>
+      <pre class="bg-gray-100 rounded p-2 text-sm text-gray-700 whitespace-pre-wrap break-words"><%= @listing.ai_summary %></pre>
     </div>
 
     <div class="text-xs text-gray-500 mt-4">

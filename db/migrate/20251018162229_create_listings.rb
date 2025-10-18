@@ -2,6 +2,8 @@ class CreateListings < ActiveRecord::Migration[8.0]
   def change
     create_table :listings do |t|
       t.timestamps
+      t.text :body, null: false
+      t.jsonb :summary
     end
   end
 end
