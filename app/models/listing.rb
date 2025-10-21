@@ -1,6 +1,12 @@
 class Listing < ApplicationRecord
   validates :body, presence: true, length: { minimum: 10, message: "must be at least 10 characters long" }
 
+  has_many :listing_summaries
+
+  def most_recent_listing_summary
+    listing_summaries.order(created_at: :desc).first
+  end
+
   def ai_summary
     return nil if summary.nil?
     summary.map { |k, v| "#{k}: #{v}" }.join("\n")

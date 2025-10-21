@@ -5,6 +5,7 @@ class ListingsController < ApplicationController
 
   def show
     @listing = Listing.find(params[:id])
+    @most_recent_listing_summary = @listing.most_recent_listing_summary
   end
 
   def new
@@ -15,6 +16,7 @@ class ListingsController < ApplicationController
     @listing = Listing.new(listing_params)
 
     if @listing.save
+      ListingSummaryService.new(@listing).summarize_via_openai
       redirect_to @listing
     else
       render :new, status: :unprocessable_entity

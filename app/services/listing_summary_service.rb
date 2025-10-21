@@ -14,8 +14,7 @@ class ListingSummaryService
       response_format: { type: "json_object" }
     )
     
-    content = response.choices.first.message.content
-    listing.update(summary: JSON.parse(content))
+    listing.listing_summaries.create(metadata: JSON.parse(response.to_json))
   end
 
   private

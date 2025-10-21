@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_18_162229) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_19_161839) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "listing_summaries", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "listing_id", null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.index ["listing_id"], name: "index_listing_summaries_on_listing_id"
+  end
 
   create_table "listings", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -20,4 +28,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_18_162229) do
     t.text "body", null: false
     t.jsonb "summary"
   end
+
+  add_foreign_key "listing_summaries", "listings"
 end

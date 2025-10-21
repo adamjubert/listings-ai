@@ -5,35 +5,53 @@
   </div>
 
   <div class="bg-white rounded-lg shadow p-6">
-    <% if @listing.summary.nil? %>
+    <% if @most_recent_listing_summary.blank? %>
       <div class="text-red-600 font-semibold mb-4">No AI summary generated.</div>
     <% else %>
       <div class="mb-4">
         <h2 class="text-md font-semibold text-gray-700 mb-2">AI Summary</h2>
         <ul class="text-gray-800 text-sm space-y-1">
-          <% if @listing.day.present? %>
-            <li><span class="font-semibold">Day:</span> <%= @listing.day %></li>
+          <% if @most_recent_listing_summary.day.present? %>
+            <li><span class="font-semibold">Day:</span> <%= @most_recent_listing_summary.day %></li>
           <% end %>
-          <% if @listing.time.present? %>
+          <% if @most_recent_listing_summary.time.present? %>
             <li><span class="font-semibold">Time:</span> <%= @listing.time %></li>
           <% end %>
-          <% if @listing.price.present? %>
-            <li><span class="font-semibold">Price:</span> <%= @listing.price %></li>
+          <% if @most_recent_listing_summary.price.present? %>
+            <li><span class="font-semibold">Price:</span> <%= @most_recent_listing_summary.price %></li>
           <% end %>
-          <% if @listing.title.present? %>
-            <li><span class="font-semibold">Title:</span> <%= @listing.title %></li>
+          <% if @most_recent_listing_summary.title.present? %>
+            <li><span class="font-semibold">Title:</span> <%= @most_recent_listing_summary.title %></li>
           <% end %>
-          <% if @listing.location.present? %>
-            <li><span class="font-semibold">Location:</span> <%= @listing.location %></li>
+          <% if @most_recent_listing_summary.location.present? %>
+            <li><span class="font-semibold">Location:</span> <%= @most_recent_listing_summary.location %></li>
           <% end %>
-          <% if @listing.categories.present? %>
-            <li><span class="font-semibold">Categories:</span> <%= @listing.categories %></li>
+          <% if @most_recent_listing_summary.categories.present? %>
+            <li><span class="font-semibold">Categories:</span> <%= @most_recent_listing_summary.categories %></li>
           <% end %>
-          <% if @listing.description.present? %>
-            <li><span class="font-semibold">Description:</span> <%= @listing.description %></li>
+          <% if @most_recent_listing_summary.description.present? %>
+            <li><span class="font-semibold">Description:</span> <%= @most_recent_listing_summary.description %></li>
           <% end %>
         </ul>
       </div>
+
+    <div class="mb-4">
+      <h2 class="text-md font-semibold text-gray-700 mb-2">AI Model Details</h2>
+      <ul class="text-gray-800 text-sm space-y-1">
+        <% if @most_recent_listing_summary.model.present? %>
+          <li><span class="font-semibold">Model:</span> <%= @most_recent_listing_summary.model %></li>
+        <% end %>
+        <% if @most_recent_listing_summary.total_tokens.present? %>
+          <li><span class="font-semibold">Total Tokens:</span> <%= @most_recent_listing_summary.total_tokens %></li>
+        <% end %>
+        <% if @most_recent_listing_summary.prompt_tokens.present? %>
+          <li><span class="font-semibold">Input Tokens:</span> <%= @most_recent_listing_summary.prompt_tokens %></li>
+        <% end %>
+        <% if @most_recent_listing_summary.completion_tokens.present? %>
+          <li><span class="font-semibold">Output Tokens:</span> <%= @most_recent_listing_summary.completion_tokens %></li>
+        <% end %>
+      </ul>
+    </div>
     <% end %>
 
     <div>
@@ -41,7 +59,7 @@
       <pre class="bg-gray-100 rounded p-2 text-sm text-gray-700 whitespace-pre-wrap break-words"><%= JSON.pretty_generate(@listing.body) %></pre>
     </div>
 
-    
+
 
     <div class="text-xs text-gray-500 mt-4">
       Added <%= time_ago_in_words(@listing.created_at) %> ago
